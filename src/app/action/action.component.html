@@ -1,0 +1,25 @@
+<main class="container-fluid">
+    <section class="row justify-content-around mt-2" *ngFor="let actionsArray of actions">
+        <div class="col-3 card p-0" *ngFor="let action of actionsArray">
+            <div class="card-header">
+                {{action.name}} <span class="text-danger" *ngIf="action.hidden"> - Akce není veřejně dostupná</span>
+            </div>
+            <div class="card-body text-center">
+                <h5 class="card-title text-center">{{action.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted text-center">{{action.subName}}</h6>
+                <p *ngIf="(state(action) === actionState.REGISTRATION_IN_PROGRESS && !submitted(action) && isFree(action))"
+                    class="card-text text-success">Můžete se přihlásit. Máme {{action.freeSpace}} volných míst.</p>
+                <p *ngIf="state(action) !== actionState.AFTER_ACTION && submitted(action)"
+                    class="card-text text-success">Jste přihlášen/a.</p>
+                <p *ngIf="state(action) === actionState.AFTER_ACTION" class="card-text text-danger">Tato akce již proběhla.
+                </p>
+                <p *ngIf="state(action) === actionState.ACTION_IN_PROGRESS" class="card-text text-warning">Akce právě
+                    probíhá</p>
+                <p class="card-text">{{action.description}}</p>
+                <button class="btn btn-outline-primary"
+                    *ngIf="state(action) === actionState.REGISTRATION_IN_PROGRESS && loggedIn && !submitted(action) && isFree(action)" (click)="submitForAction(action)">Přihlásit
+                    se</button>
+            </div>
+        </div>
+    </section>
+</main>

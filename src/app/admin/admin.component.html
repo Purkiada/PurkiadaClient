@@ -1,0 +1,57 @@
+<main class="container-fluid">
+    <section class="row justify-content-center mt-2">
+        <div class="col-3 card p-0">
+            <p class="card-header text-center">Akce</p>
+            <div class="card-body">
+                <div class="list-group">
+                    <span href="#" role="button" class="list-group-item list-group-item-action active" (click)="selectAction()" [ngClass]="{'active': !selected}">Nová akce</span>
+                    <span href="#" role="button" class="list-group-item list-group-item-action" (click)="selectAction(action)" [ngClass]="{'active': selected === action}" *ngFor="let action of actions">{{action.name}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-8 border">
+            <form class="mt-2" *ngIf="form" [formGroup]="form" (ngSubmit)="save()">
+                <div class="mb-3">
+                    <label class="form-label">Název</label>
+                    <input type="text" placeholder="Purkiáda 2022" class="form-control" formControlName="name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Podnázev</label>
+                    <input type="text" placeholder="Matrix" class="form-control" formControlName="subName">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Popis</label>
+                    <textarea class="form-control" formControlName="description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Začátek registrace</label>
+                    <input type="datetime-local" class="form-control" formControlName="registrationStart">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Konec registrace</label>
+                    <input type="datetime-local" class="form-control" formControlName="registrationEnd">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Začátek akce</label>
+                    <input type="datetime-local" class="form-control" formControlName="actionStart">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Konec akce</label>
+                    <input type="datetime-local" class="form-control" formControlName="actionEnd">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Maximální počet účastníků</label>
+                    <input type="number" placeholder="100" class="form-control" formControlName="maxUsers">
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" formControlName="hidden">
+                    <label class="form-check-label">
+                        Skrýt
+                    </label>
+                </div>
+                <button class="btn btn-outline-primary mb-3">Uložit</button>
+                <button class="btn btn-outline-danger mb-3 ms-1" *ngIf="selected" type="button" (click)="delete()">Smazat</button>
+            </form>
+        </div>
+    </section>
+</main>
