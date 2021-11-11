@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   backend: {
-    app: "https://api.purkiada.cz/"
+    app: "https://api.purkiada.cz"
   },
   keycloak: {
     issuer: 'https://id.matejbucek.cz/auth/realms/Purkiada',
