@@ -5,7 +5,7 @@ export const environment = {
   },
   keycloak: {
     issuer: 'https://id.matejbucek.cz/auth/realms/Purkiada',
-    redirectUri: 'https://purkiada.cz/',
+    redirectUri: 'https://purkiada.cz',
     clientId: 'frontend',
     responseType: 'code',
     scope: 'openid profile email',
