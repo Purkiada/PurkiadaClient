@@ -1,5 +1,7 @@
 # PurkiadaClient
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c0e749df-68d9-41a8-8a5a-a1f5480d41f5/deploy-status)](https://app.netlify.com/sites/purkiada/deploys)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.9.
 
 ## Development server
