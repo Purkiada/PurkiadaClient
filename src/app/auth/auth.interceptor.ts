@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private readonly authService: AuthService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if(this.authService.isLoggedIn() && request.url.includes("localhost")){
+    if(this.authService.isLoggedIn() && (request.url.includes("localhost") || request.url.includes("purkiada"))){
       
       let headers = new HttpHeaders({
         "Authorization": `Bearer ${this.authService.getAccessToken()}`
