@@ -49,12 +49,15 @@ export class AdminComponent implements OnInit {
         this.actionService.createAction(data).subscribe(
           (action) => {
             this.actions.push(action);
+            this.selectAction(undefined);
           }
         );
       }else{
         this.actionService.updateAction(data).subscribe(
           (action) => {
-
+            let found = this.actions.filter(value => value.id === action.id);
+            this.actions[this.actions.indexOf(found[0])] = action;
+            this.selectAction(action);
           }
         );
       }
@@ -67,6 +70,7 @@ export class AdminComponent implements OnInit {
         (action) => {
           let found = this.actions.filter(value => value.id === action.id);
           this.actions.splice(this.actions.indexOf(found[0]), 1);
+          this.selectAction(undefined)
         }
       );
   }
