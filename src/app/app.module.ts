@@ -12,6 +12,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { AccountComponent } from './auth/account/account.component';
 import { AdminComponent } from './admin/admin.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     LoginComponent,
     AccountComponent,
-    AdminComponent
+    AdminComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

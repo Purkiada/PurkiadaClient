@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Action } from '../action/action';
 import { ActionService } from '../action/action.service';
+import { AlertService } from '../alert/alert.service';
 
 @Component({
   selector: 'app-admin',
@@ -13,7 +14,7 @@ export class AdminComponent implements OnInit {
   public form?: FormGroup;
   public selected?: Action;
 
-  constructor(private readonly actionService: ActionService) { 
+  constructor(private readonly actionService: ActionService, private readonly alertService: AlertService) { 
     this.actionService.getActions().subscribe(
       (actions) => {
         this.actions = actions;
@@ -50,6 +51,8 @@ export class AdminComponent implements OnInit {
           (action) => {
             this.actions.push(action);
             this.selectAction(undefined);
+          }, (err) => {
+            this.alertService.invokeAlert({icon: "bi-x-circle", status: "danger", "text": "Akci se nepodařilo vytvořit."});
           }
         );
       }else{
@@ -58,6 +61,8 @@ export class AdminComponent implements OnInit {
             let found = this.actions.filter(value => value.id === action.id);
             this.actions[this.actions.indexOf(found[0])] = action;
             this.selectAction(action);
+          }, (err) => {
+            this.alertService.invokeAlert({icon: "bi-x-circle", status: "danger", "text": "Akci se nepodařilo upravit."});
           }
         );
       }
@@ -71,6 +76,8 @@ export class AdminComponent implements OnInit {
           let found = this.actions.filter(value => value.id === action.id);
           this.actions.splice(this.actions.indexOf(found[0]), 1);
           this.selectAction(undefined)
+        }, (err) => {
+          this.alertService.invokeAlert({icon: "bi-x-circle", status: "danger", "text": "Akci se nepodařilo smazat."});
         }
       );
   }

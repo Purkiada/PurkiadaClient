@@ -16,6 +16,11 @@
                 </p>
                 <p *ngIf="state(action) === actionState.ACTION_IN_PROGRESS" class="card-text text-warning">Akce právě
                     probíhá</p>
+                <p>Začátek registrace: {{prettifyDate(action.registrationStart)}}</p>
+                <p>Konec registrace: {{prettifyDate(action.registrationEnd)}}</p>
+                <p>Začátek akce: {{prettifyDate(action.actionStart)}}</p>
+                <p>Konec akce: {{prettifyDate(action.actionEnd)}}</p>
+                <hr>
                 <p class="card-text">{{action.description}}</p>
                 <button class="btn btn-outline-primary"
                     *ngIf="state(action) === actionState.REGISTRATION_IN_PROGRESS && loggedIn && !submitted(action) && isFree(action)" (click)="submitForAction(action)">Přihlásit

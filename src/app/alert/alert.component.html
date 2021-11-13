@@ -1,0 +1,11 @@
+<div class="position-absolute mt-5 container-fluid" style="z-index: 100;">
+    <div class="row justify-content-center" *ngFor="let alert of alerts">
+        <div class="alert alert-{{alert.status}} col-6 d-flex justify-content-between" role="alert">
+            <div>
+                <i class="bi me-2 {{alert.icon}}" *ngIf="alert.icon"></i>
+                {{alert.text}}
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="closeAlert(alert)"></button>
+        </div>
+    </div>
+</div>

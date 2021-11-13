@@ -4,6 +4,7 @@ import { Action } from './action';
 import { ActionState } from './action-state.enum';
 import { ActionSubmit } from './action-submit';
 import { ActionService } from './action.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-action',
@@ -70,6 +71,11 @@ export class ActionComponent implements OnInit {
           this.actionSubmits[action.id] = submit;
         }
       );
+  }
+
+  public prettifyDate(date?: Date){
+    moment.locale("cs");
+    return date? moment(date).calendar() : "";
   }
 
   ngOnInit(): void {

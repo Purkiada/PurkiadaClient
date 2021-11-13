@@ -8,7 +8,7 @@ import { User } from './auth/user';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'PurkiadaClient';
+  title = 'Purkiáda';
 
   public loggedIn: boolean;
   public user?: User;
