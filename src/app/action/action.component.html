@@ -1,7 +1,7 @@
 <main class="container-fluid">
     <h3 class="text-center mt-3" *ngIf="actions.length === 0">Nebyly nalezeny žádné akce.</h3>
     <section class="row justify-content-around mt-2" *ngFor="let actionsArray of actions">
-        <div class="col-3 card p-0" *ngFor="let action of actionsArray">
+        <div class="col-sm-12 col-md-12 col-lg-3 card p-0 mb-2" *ngFor="let action of actionsArray">
             <div class="card-header">
                 {{action.name}} <span class="text-danger" *ngIf="action.hidden"> - Akce není veřejně dostupná</span>
             </div>
