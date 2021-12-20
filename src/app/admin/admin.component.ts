@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Action } from '../action/action';
+import { ActionSubmit } from '../action/action-submit';
 import { ActionService } from '../action/action.service';
 import { AlertService } from '../alert/alert.service';
 
@@ -13,6 +14,7 @@ export class AdminComponent implements OnInit {
   public actions: Action[] = [];
   public form?: FormGroup;
   public selected?: Action;
+  public submittedUsers: ActionSubmit[] = [];
 
   constructor(private readonly actionService: ActionService, private readonly alertService: AlertService) { 
     this.actionService.getActions().subscribe(
@@ -40,6 +42,11 @@ export class AdminComponent implements OnInit {
   public selectAction(action?: Action){
     this.setupForm(action);
     this.selected = action;
+    if(action) this.actionService.getSubmitsByAction(action).subscribe(
+      (submits) => {
+        this.submittedUsers = submits;
+      }
+    );
   }
 
   public save(){
@@ -81,6 +88,18 @@ export class AdminComponent implements OnInit {
         }
       );
   }
+
+  public deleteSubmit(submit: ActionSubmit){
+    if(this.selected)
+    this.actionService.deleteSubmitByActionAndId(this.selected, submit).subscribe(
+      (res) => {
+        let found = this.submittedUsers.filter(value => value.id === res.id);
+        this.submittedUsers.splice(this.submittedUsers.indexOf(found[0], 1));
+      }
+    );
+  }
+
+
 
   ngOnInit(): void {
   }

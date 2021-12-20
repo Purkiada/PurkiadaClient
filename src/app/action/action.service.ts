@@ -65,7 +65,7 @@ export class ActionService {
     );
   }
 
-  public isSubmittedForAction(action: Action){
+  public isSubmittedForAction(action: Action) {
     return this.httpClient.get(`${environment.backend.app}/v1/action/${action.id}/submitted`).pipe(
       map(
         (res: any) => <ActionSubmit>res
@@ -73,7 +73,25 @@ export class ActionService {
     );
   }
 
-  public prepareForSendign(action: Action){
+  public getSubmitsByAction(action: Action) {
+    return this.httpClient.get(`${environment.backend.app}/v1/action/${action.id}/submit`).pipe(
+      map(
+        (res: any) => res.map(
+          (submit: any) => <ActionSubmit>submit
+        )
+      )
+    );
+  }
+
+  public deleteSubmitByActionAndId(action: Action, submit: ActionSubmit){
+    return this.httpClient.delete(`${environment.backend.app}/v1/action/${action.id}/submit/${submit.id}`).pipe(
+      map(
+        (res: any) => <ActionSubmit>res 
+      )
+    );
+  }
+
+  public prepareForSendign(action: Action) {
     let obj: any = action;
     //@ts-ignore
     obj.registrationStart = new Date(action.registrationStart).toISOString();
@@ -97,7 +115,7 @@ export class ActionService {
 
   public actionState(action: Action): ActionState | undefined {
     let now = new Date();
-    if (action.actionStart && action.actionEnd && action.registrationStart && action.registrationEnd){
+    if (action.actionStart && action.actionEnd && action.registrationStart && action.registrationEnd) {
       if (now < action.registrationStart) {
         return ActionState.BEFORE_REGISTRATION;
       } else if (now > action.registrationStart && now < action.registrationEnd) {

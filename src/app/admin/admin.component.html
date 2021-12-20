@@ -52,6 +52,39 @@
                 <button class="btn btn-outline-primary mb-3">Uložit</button>
                 <button class="btn btn-outline-danger mb-3 ms-1" *ngIf="selected" type="button" (click)="delete()">Smazat</button>
             </form>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                      Zobrazit přihlášené uživatele
+                    </button>
+                  </h2>
+                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Jméno</th>
+                                <th scope="col">Příjmení</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Akce</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let submit of submittedUsers; let i = index">
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{submit.publicUser.firstname}}</td>
+                                <td>{{submit.publicUser.lastname}}</td>
+                                <td>{{submit.publicUser.email}}</td>
+                                <td><button class="btn btn-danger" (click)="deleteSubmit(submit)">Smazat</button></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
         </div>
     </section>
 </main>
