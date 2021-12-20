@@ -66,7 +66,7 @@ export class ActionService {
   }
 
   public isSubmittedForAction(action: Action){
-    return this.httpClient.get(`${environment.backend.app}/v1/action/${action.id}/submit`).pipe(
+    return this.httpClient.get(`${environment.backend.app}/v1/action/${action.id}/submitted`).pipe(
       map(
         (res: any) => <ActionSubmit>res
       )
