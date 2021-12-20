@@ -94,7 +94,7 @@ export class AdminComponent implements OnInit {
     this.actionService.deleteSubmitByActionAndId(this.selected, submit).subscribe(
       (res) => {
         let found = this.submittedUsers.filter(value => value.id === res.id);
-        this.submittedUsers.splice(this.submittedUsers.indexOf(found[0], 1));
+        this.submittedUsers.splice(this.submittedUsers.indexOf(found[0]), 1);
       }
     );
   }
