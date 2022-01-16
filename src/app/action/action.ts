@@ -1,3 +1,5 @@
+import { AuthenticationType } from "./authentication-type.enum";
+
 export interface Action {
     id?: number,
     name?: string,
@@ -9,5 +11,6 @@ export interface Action {
     actionEnd?: Date,
     maxUsers?: number,
     freeSpace?: number,
-    hidden?: boolean
+    hidden?: boolean,
+    authenticationType?: AuthenticationType
 }

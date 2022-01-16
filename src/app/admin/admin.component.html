@@ -49,7 +49,14 @@
                         Skrýt
                     </label>
                 </div>
+                <div class="mb-3">
+                  <label class="form-label">Způsob přihlašování</label>
+                  <select class="form-select" formControlName="authenticationType">
+                    <option *ngFor="let type of authenticationTypes" [ngValue]="type">{{type}}</option>
+                  </select>
+                </div>
                 <button class="btn btn-outline-primary mb-3">Uložit</button>
+                <a href="{{getExportUrl()}}" download="action_export.xlsx" *ngIf="selected" class="btn btn-outline-warning mb-3">Vyexportovat</a>
                 <button class="btn btn-outline-danger mb-3 ms-1" *ngIf="selected" type="button" (click)="delete()">Smazat</button>
             </form>
             <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -68,6 +75,7 @@
                                 <th scope="col">Jméno</th>
                                 <th scope="col">Příjmení</th>
                                 <th scope="col">E-mail</th>
+                                <th scope="col" *ngIf="selected?.authenticationType === 'GENERATED_PASSWORD'">Heslo</th>
                                 <th scope="col">Akce</th>
                               </tr>
                             </thead>
@@ -77,7 +85,8 @@
                                 <td>{{submit.publicUser.firstname}}</td>
                                 <td>{{submit.publicUser.lastname}}</td>
                                 <td>{{submit.publicUser.email}}</td>
-                                <td><button class="btn btn-danger" (click)="deleteSubmit(submit)">Smazat</button></td>
+                                <td *ngIf="selected?.authenticationType === 'GENERATED_PASSWORD'">{{submit.legacyAccessToken}}</td>
+                                <td><button *ngIf="selected?.authenticationType === 'GENERATED_PASSWORD'" class="btn btn-primary" (click)="regenerateAccessToken(submit)">Generovat heslo</button><button class="btn btn-danger" (click)="deleteSubmit(submit)">Smazat</button></td>
                               </tr>
                             </tbody>
                           </table>

@@ -91,6 +91,14 @@ export class ActionService {
     );
   }
 
+  public regenerateAccessTokenByActionAndId(action: Action, submit: ActionSubmit){
+    return this.httpClient.post(`${environment.backend.app}/v1/action/${action.id}/submit/${submit.id}/regenerateAccessToken`, undefined).pipe(
+      map(
+        (res: any) => <ActionSubmit>res 
+      )
+    );
+  }
+
   public prepareForSendign(action: Action) {
     let obj: any = action;
     //@ts-ignore

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 import { Action } from '../action/action';
 import { ActionSubmit } from '../action/action-submit';
 import { ActionService } from '../action/action.service';
+import { AuthenticationType } from '../action/authentication-type.enum';
 import { AlertService } from '../alert/alert.service';
 
 @Component({
@@ -15,8 +17,12 @@ export class AdminComponent implements OnInit {
   public form?: FormGroup;
   public selected?: Action;
   public submittedUsers: ActionSubmit[] = [];
+  public authenticationTypes: string[] = [];
 
   constructor(private readonly actionService: ActionService, private readonly alertService: AlertService) { 
+    for(let type in AuthenticationType){
+      this.authenticationTypes.push(type);
+    }
     this.actionService.getActions().subscribe(
       (actions) => {
         this.actions = actions;
@@ -35,7 +41,8 @@ export class AdminComponent implements OnInit {
       actionStart: new FormControl((action?.actionStart)? this.actionService.formatDateTime(action.actionStart) : undefined, [Validators.required]),
       actionEnd: new FormControl((action?.actionEnd)? this.actionService.formatDateTime(action.actionEnd) : undefined, [Validators.required]),
       maxUsers: new FormControl(action?.maxUsers, [Validators.required]),
-      hidden: new FormControl((action?.hidden == undefined)? false : action.hidden, [Validators.required])
+      hidden: new FormControl((action?.hidden == undefined)? false : action.hidden, [Validators.required]),
+      authenticationType: new FormControl(action?.authenticationType)
     });
   }
 
@@ -77,7 +84,7 @@ export class AdminComponent implements OnInit {
   }
 
   public delete(){
-    if(this.selected)
+    if(this.selected && confirm("Opravdu chcete smazat tuto akci?"))
       this.actionService.deleteAction(this.selected).subscribe(
         (action) => {
           let found = this.actions.filter(value => value.id === action.id);
@@ -90,15 +97,31 @@ export class AdminComponent implements OnInit {
   }
 
   public deleteSubmit(submit: ActionSubmit){
-    if(this.selected)
-    this.actionService.deleteSubmitByActionAndId(this.selected, submit).subscribe(
-      (res) => {
-        let found = this.submittedUsers.filter(value => value.id === res.id);
-        this.submittedUsers.splice(this.submittedUsers.indexOf(found[0]), 1);
-      }
-    );
+    if(this.selected && confirm("Opravdu chcete účastníka smazat?")){
+      this.actionService.deleteSubmitByActionAndId(this.selected, submit).subscribe(
+        (res) => {
+          let found = this.submittedUsers.filter(value => value.id === res.id);
+          this.submittedUsers.splice(this.submittedUsers.indexOf(found[0]), 1);
+        }
+      );
+    }
   }
 
+  public regenerateAccessToken(submit: ActionSubmit){
+    if(this.selected && confirm("Opravdu chcete vygenerovat nové heslo?")){
+      this.actionService.regenerateAccessTokenByActionAndId(this.selected, submit).subscribe(
+        (res) => {
+          let found = this.submittedUsers.filter(value => value.id === res.id);
+          found[0].legacyAccessToken = res.legacyAccessToken;
+        }
+      );
+    }
+  }
+
+  public getExportUrl(){
+    //@ts-ignore
+    return `${environment.backend.app}/v1/action/${this.selected.id}/export`;
+  }
 
 
   ngOnInit(): void {
