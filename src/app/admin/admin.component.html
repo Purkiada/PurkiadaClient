@@ -56,7 +56,7 @@
                   </select>
                 </div>
                 <button class="btn btn-outline-primary mb-3">Uložit</button>
-                <a href="{{getExportUrl()}}" download="action_export.xlsx" *ngIf="selected" class="btn btn-outline-warning mb-3">Vyexportovat</a>
+                <a href="{{getExportUrl()}}" download="action_export.xlsx" *ngIf="selected" class="btn btn-outline-warning mb-3 ms-1">Vyexportovat</a>
                 <button class="btn btn-outline-danger mb-3 ms-1" *ngIf="selected" type="button" (click)="delete()">Smazat</button>
             </form>
             <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -86,7 +86,7 @@
                                 <td>{{submit.publicUser.lastname}}</td>
                                 <td>{{submit.publicUser.email}}</td>
                                 <td *ngIf="selected?.authenticationType === 'GENERATED_PASSWORD'">{{submit.legacyAccessToken}}</td>
-                                <td><button *ngIf="selected?.authenticationType === 'GENERATED_PASSWORD'" class="btn btn-primary" (click)="regenerateAccessToken(submit)">Generovat heslo</button><button class="btn btn-danger" (click)="deleteSubmit(submit)">Smazat</button></td>
+                                <td><button *ngIf="selected?.authenticationType === 'GENERATED_PASSWORD'" class="btn btn-primary me-1" (click)="regenerateAccessToken(submit)">Generovat heslo</button><button class="btn btn-danger" (click)="deleteSubmit(submit)">Smazat</button></td>
                               </tr>
                             </tbody>
                           </table>
