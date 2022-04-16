@@ -4,7 +4,7 @@ export const environment = {
     app: "https://api.purkiada.cz"
   },
   keycloak: {
-    issuer: 'https://id.matejbucek.cz/auth/realms/Purkiada',
+    issuer: 'https://id.matejbucek.cz/realms/Purkiada',
     redirectUri: 'https://purkiada.cz',
     clientId: 'frontend',
     responseType: 'code',

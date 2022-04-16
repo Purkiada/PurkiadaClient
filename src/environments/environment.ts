@@ -8,7 +8,7 @@ export const environment = {
     app: "http://localhost:8080"
   },
   keycloak: {
-    issuer: 'https://id.matejbucek.cz/auth/realms/Purkiada',
+    issuer: 'https://id.matejbucek.cz/realms/Purkiada',
     redirectUri: 'http://localhost:4200',
     clientId: 'frontend',
     responseType: 'code',
