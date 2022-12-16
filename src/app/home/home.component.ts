@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    document.location.href = 'https://purkiada.sspbrno.cz/?redirected-from-purkiada.cz';
+  }
 
   ngOnInit(): void {
   }
